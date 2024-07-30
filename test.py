@@ -29,14 +29,14 @@ def brute_force_search(target_hash, charset, max_length):
     return None
 
 # Define the target hash
-password = "Test1"
+password = "Ta1!"
 target_hash = hash_passwordd(password)
 
 # Define the character set to use for generating passwords
-charset = string.ascii_uppercase + string.ascii_lowercase + string.digits   # a-z and 0-9
+charset = string.ascii_uppercase + string.ascii_lowercase + string.digits +string.punctuation  # a-z and 0-9
 
 # Define the maximum length of passwords to try
-max_length = 5
+max_length = 4
 
 print(f'Password : {password}')
 print(f'hash_passwordd : {target_hash}')
