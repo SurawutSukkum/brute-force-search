@@ -1,44 +1,50 @@
 import hashlib
 import bcrypt
-def brute_force_search(arr, target):
-    for i in range(len(arr)):
-        if arr[i] == target:
-            return i
-    return -1
+import os
+import itertools
+import string
 
-# Example usage:
-arr = [3, 5, 1, 4, 2]
-target = 4
-index = brute_force_search(arr, target)
-print(f"Element {target} found at index {index}" if index != -1 else "Element not found")
 
+def hash_passwordd(password):
+    # Encode the password to bytes
+    password_bytes = password.encode('utf-8')
+    # Create a SHA-256 hash object
+    hash_object = hashlib.sha256(password_bytes)
+    # Get the hexadecimal representation of the hash
+    hashed_password = hash_object.hexdigest()
+    return hashed_password
+
+# Function to compute the SHA-256 hash of a given password
 def hash_password(password):
-    # Create a new sha256 hash object
-    hash_obj = hashlib.sha256()
-    # Update the hash object with the password encoded as bytes
-    hash_obj.update(password.encode('utf-8'))
-    # Return the hexadecimal representation of the digest
-    return hash_obj.hexdigest()
+    return hashlib.sha256(password.encode()).hexdigest()
 
+# Brute-force search for the password
+def brute_force_search(target_hash, charset, max_length):
+    for length in range(1, max_length + 1):
+        for attempt in itertools.product(charset, repeat=length):
+            attempt_password = ''.join(attempt)
+            attempt_hash = hash_password(attempt_password)
+            if attempt_hash == target_hash:
+                return attempt_password
+    return None
 
-def hash_password(password):
-    # Generate a salt
-    salt = bcrypt.gensalt()
-    # Hash the password with the salt
-    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed
+# Define the target hash
+password = "Test1"
+target_hash = hash_passwordd(password)
 
-def check_password(hashed_password, user_password):
-    # Check the hashed password against the user's password
-    return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password)
+# Define the character set to use for generating passwords
+charset = string.ascii_uppercase + string.ascii_lowercase + string.digits  # a-z and 0-9
 
-# Example usage1
-password = "Test"
-print(f"Password: {password}")
-hashed_password = hash_password(password)
-print(f"Hashed password: {hashed_password.decode()}")
-is_correct = check_password(hashed_password, password)
-print(f"Password is correct: {is_correct}")
+# Define the maximum length of passwords to try
+max_length = 5
 
+print(f'Password : {password}')
+print(f'hash_passwordd : {target_hash}')
+# Perform the brute-force search
+found_password = brute_force_search(target_hash, charset, max_length)
 
+if found_password:
+    print(f'Password found: {found_password}')
+else:
+    print('Password not found')
 
