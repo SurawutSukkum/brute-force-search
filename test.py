@@ -12,8 +12,6 @@ target = 4
 index = brute_force_search(arr, target)
 print(f"Element {target} found at index {index}" if index != -1 else "Element not found")
 
-
-
 def hash_password(password):
     # Create a new sha256 hash object
     hash_obj = hashlib.sha256()
@@ -34,13 +32,11 @@ def check_password(hashed_password, user_password):
     # Check the hashed password against the user's password
     return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password)
 
-
 # Example usage
-password = "surawut"
+password = "Test"
+print(f"Password: {password}")
 hashed_password = hash_password(password)
 print(f"Hashed password: {hashed_password.decode()}")
-
-# Check the password
 is_correct = check_password(hashed_password, password)
 print(f"Password is correct: {is_correct}")
 
