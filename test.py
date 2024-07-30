@@ -47,13 +47,13 @@ target_hash = hash_passwordd(password)
 charset = string.ascii_uppercase + string.ascii_lowercase + string.digits +string.punctuation  # a-z and 0-9
 
 # Define the maximum length of passwords to try
-max_length = 4
+max_length = 6
 
 print(f'Password : {password}')
 print(f'hash_passwordd : {target_hash}')
+
 # Perform the brute-force search
 found_password = brute_force_search(target_hash, charset, max_length)
-
 if found_password:
     print(f'Password found: {found_password}')
 else:
