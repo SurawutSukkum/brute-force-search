@@ -32,7 +32,7 @@ def check_password(hashed_password, user_password):
     # Check the hashed password against the user's password
     return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password)
 
-# Example usage11
+# Example usage1
 password = "Test"
 print(f"Password: {password}")
 hashed_password = hash_password(password)
