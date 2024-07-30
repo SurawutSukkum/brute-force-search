@@ -3,6 +3,17 @@ import bcrypt
 import os
 import itertools
 import string
+import yaml
+import os
+import os.path
+from pathlib import Path
+print(Path.cwd())
+yaml_path= str(Path.cwd())+"\\"+"setup.yaml"
+print(yaml_path)
+with open(yaml_path, 'r') as file:
+      machineDetail = yaml.safe_load(file)
+
+print(machineDetail['Admin'])
 
 
 def hash_passwordd(password):
@@ -29,7 +40,7 @@ def brute_force_search(target_hash, charset, max_length):
     return None
 
 # Define the target hash
-password = "Ta1!"
+password = machineDetail['Admin']
 target_hash = hash_passwordd(password)
 
 # Define the character set to use for generating passwords
